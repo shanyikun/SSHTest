@@ -1,0 +1,32 @@
+<! DOCTYPE html>
+<html>
+<head>
+<title>userPage</title>
+<script src="/js/jquery.min.js"></script>
+</head>
+<body>
+	<p>name: $result.name</p>
+	<p>id: $result.id</p>
+	<button>logout</button>
+	<p id="prompt"></p>
+	<script>
+	$("button").bind({
+		"click": function(event){
+			$.ajax({
+				url: "/logout",
+				method: "get",
+				dataType: "json",
+				success: function(data){
+					if(data.statCode==="0"){
+						window.location.replace("/login")
+					}
+					else {
+						$("#prompt").text(data.message)
+					}
+				}
+			})
+		}
+	})
+	</script>
+</body>
+</html>

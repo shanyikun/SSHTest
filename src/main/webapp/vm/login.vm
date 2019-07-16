@@ -1,0 +1,42 @@
+<! DOCTYPE html>
+<html>
+<head>
+<title>login</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/css/test.css">
+<script src="/js/jquery.min.js"></script>
+</head>
+<body>
+	<form action="/login" method="post">
+		<input type="text" name="name" placeholder="用户名" required>
+		<input type="password" name="password" placeholder="密码" required>
+		<input type="submit" value="login">
+	</form>
+	<p>
+		没有账号？ <a href="/register">注册</a>
+	</p>
+	<p id="inform"></p>
+	<script>
+		$("form").bind({
+			"submit": function(event){
+				let dataFormat = $(this).serialize()
+				$.ajax({
+					url: "/login",
+					data: dataFormat,
+					dataType: "json",
+					method: "post",
+					success: function(data){
+						if(data.statCode==="500"){
+							$("#inform").text(data.message)
+						}
+						else {
+							window.location.href = "/userInfo"
+						}
+					}
+				})
+				event.preventDefault()
+			}
+		})
+	</script>
+</body>
+</html>
